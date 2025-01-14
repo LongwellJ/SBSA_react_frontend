@@ -97,7 +97,7 @@ const ImageUpload = () => {
         sx={{ p: 4, width: "100%", maxWidth: "600px", textAlign: "center" }}
       >
         <Typography variant="h4" gutterBottom>
-          Image Segmentation App
+          Subretinal Fluid Segmentation App
         </Typography>
 
         {/* Form for pixel height, width, and slice width */}
@@ -166,23 +166,23 @@ const ImageUpload = () => {
             >
               Download All Segmented Images
             </Button>
-            {/* Display total subretinal fluid area */}
-            {totalFluidArea !== null && (
-              <Typography
-                variant="h6"
-                sx={{ mb: 2, textAlign: "center", fontWeight: "bold" }}
-              >
-                Total Subretinal Fluid Area: {totalFluidArea.toFixed(2)} µm²
-              </Typography>
-            )}
             {/* Disclaimer about browser settings */}
             <Typography
               variant="body2"
               color="textSecondary"
-              sx={{ mb: 3, textAlign: "center", fontStyle: "italic" }}
+              sx={{ textAlign: "center", fontStyle: "italic" }}
             >
               Note: You may need to adjust your browser settings to allow multiple file downloads at once.
             </Typography>
+            {/* Display total subretinal fluid area */}
+            {totalFluidArea !== null && (
+              <Typography
+                variant="h6"
+                sx={{ my: 2, textAlign: "center", fontWeight: "bold" }}
+              >
+                Total Subretinal Fluid Area: {totalFluidArea.toFixed(2)} µm²
+              </Typography>
+            )}
             {segmentationInfo.map((info, index) => (
               <Box key={index} mb={4}>
                 <Typography variant="h6">

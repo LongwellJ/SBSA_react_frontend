@@ -14,6 +14,7 @@ import { CloudUpload as CloudUploadIcon } from "@mui/icons-material";
 
 const ImageUpload = () => {
   const [files, setFiles] = useState([]);
+  const [originalImages, setOriginalImages] = useState([]); // Store original images
   const [segmentationInfo, setSegmentationInfo] = useState([]);
   const [segmentedImages, setSegmentedImages] = useState([]);
   const [ph, setPh] = useState(2); // Default pixel height in microns
@@ -24,7 +25,13 @@ const ImageUpload = () => {
   const [error, setError] = useState("");
 
   const handleFileChange = (event) => {
-    setFiles(Array.from(event.target.files)); // Convert FileList to Array
+    const selectedFiles = Array.from(event.target.files); // Convert FileList to Array
+    setFiles(selectedFiles);
+
+    // Convert files to base64 strings to display the original images
+    const imagePreviews = selectedFiles.map((file) => URL.createObjectURL(file));
+    setOriginalImages(imagePreviews);
+
     setError("");
     setSegmentationInfo([]);
     setSegmentedImages([]);
@@ -98,6 +105,13 @@ const ImageUpload = () => {
       >
         <Typography variant="h4" gutterBottom>
           Subretinal Fluid Segmentation App
+        </Typography>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          sx={{ textAlign: "center", fontStyle: "italic", mb: 2 }}
+        >
+          Disclaimer: This is a placeholder text for any important information you would like users to know about the segmentation process or its limitations.
         </Typography>
 
         {/* Form for pixel height, width, and slice width */}
@@ -202,12 +216,36 @@ const ImageUpload = () => {
                 <Typography variant="body2" sx={{ mt: 1 }}>
                   Subretinal Fluid Volume:{" "}
                   <strong>
-                    {info.subretinal_fluid_area.toFixed(2)} µm²
+                    {info.subretinal_fluid_area.toFixed(2)} µm³
                   </strong>
                 </Typography>
+                <Box display="flex" justifyContent="space-between" gap={2}>
+                  {/* Original image */}
+                  <img
+                    src={originalImages[index]}
+                    alt={`Original Input ${info.filename}`}
+                    style={{
+                      width: "48%",
+                      maxHeight: "300px",
+                      borderRadius: "8px",
+                      border: "1px solid #ccc",
+                    }}
+                  />
+                  {/* Segmented image */}
+                  <img
+                    src={segmentedImages[index]}
+                    alt={`Segmented Output ${info.filename}`}
+                    style={{
+                      width: "48%",
+                      maxHeight: "300px",
+                      borderRadius: "8px",
+                      border: "1px solid #ccc",
+                    }}
+                  />
+                </Box>
                 <Typography
                   variant="h6"
-                  sx={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
+                  sx={{ cursor: "pointer", color: "blue", textDecoration: "underline", mt: 2 }}
                   onClick={() =>
                     downloadImage(
                       segmentedImages[index],
@@ -217,11 +255,6 @@ const ImageUpload = () => {
                 >
                   Segmented Image for File {info.filename} (Click to Download)
                 </Typography>
-                <img
-                  src={segmentedImages[index]}
-                  alt={`Segmented Output ${info.filename}`}
-                  style={{ width: "100%", maxHeight: "300px", borderRadius: "8px" }}
-                />
               </Box>
             ))}
           </Box>

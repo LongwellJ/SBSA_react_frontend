@@ -188,13 +188,13 @@ const ImageUpload = () => {
                   variant="h6"
                   sx={{ my: 2, textAlign: "center", fontWeight: "bold" }}
                 >
-                  Total Subretinal Fluid Area: {totalFluidArea.toFixed(2)} µm²
+                  Total Subretinal Fluid Volume: {totalFluidArea.toFixed(2)} µm³
                 </Typography>
               )}
               {segmentationInfo.map((info, index) => (
                 <Box key={index} mb={4}>
                   <Typography variant="h6">
-                    Segmentation Info for File {index + 1}:
+                    Segmentation Info for File {info.filename}:
                   </Typography>
                   <Box
                     component="pre"
@@ -210,7 +210,7 @@ const ImageUpload = () => {
                   <Typography variant="body2" sx={{ mt: 1 }}>
                     Subretinal Fluid Area:{" "}
                     <strong>
-                      {info.subretinal_fluid_area.toFixed(2)} µm²
+                      {info.subretinal_fluid_area.toFixed(2)} µm³
                     </strong>
                   </Typography>
                   <Typography
@@ -219,15 +219,15 @@ const ImageUpload = () => {
                     onClick={() =>
                       downloadImage(
                         segmentedImages[index],
-                        `segmented_image_${index + 1}.png`
+                        `segmented_image_${info.filename}`
                       )
                     }
                   >
-                    Segmented Image for File {index + 1} (Click to Download)
+                    Segmented Image for File {info.filename} (Click to Download)
                   </Typography>
                   <img
                     src={segmentedImages[index]}
-                    alt={`Segmented Output ${index + 1}`}
+                    alt={`Segmented Output ${info.filename}`}
                     style={{ width: "100%", maxHeight: "300px", borderRadius: "8px" }}
                   />
                 </Box>

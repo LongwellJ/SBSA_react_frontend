@@ -111,7 +111,9 @@ const ImageUpload = () => {
           color="textSecondary"
           sx={{ textAlign: "center", fontStyle: "italic", mb: 2 }}
         >
-          Disclaimer: This is a placeholder text for any important information you would like users to know about the segmentation process or its limitations.
+          Disclaimer: The information provided on this website does not, and is not intended to, constitute medical advice; instead, all information, content, and materials available on this site are for general information purposes only. Information on this website may not constitute the most up-to-date medical or other information. The creators assume zero liability from the use of this website.
+
+          No data is saved or collected from the use of this website. All images uploaded to this website are not saved or downloaded externally in any manner. No user data is collected.
         </Typography>
 
         {/* Form for pixel height, width, and slice width */}

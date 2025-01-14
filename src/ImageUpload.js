@@ -174,7 +174,7 @@ const ImageUpload = () => {
             >
               Note: You may need to adjust your browser settings to allow multiple file downloads at once.
             </Typography>
-            {/* Display total subretinal fluid area */}
+            {/* Display total subretinal fluid area below the disclaimer */}
             {totalFluidArea !== null && (
               <Typography
                 variant="h6"
